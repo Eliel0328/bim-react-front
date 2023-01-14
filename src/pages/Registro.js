@@ -1,22 +1,42 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import useLocalStorage from '../util/useLocalStorage';
+
+const client = axios.create({
+    baseURL: 'http://localhost:8080',
+});
 
 const Registro = () => {
+    const [token, setToken] = useLocalStorage('', 'token');
+
     const [correo, setCorreo] = useState();
-    const [username, setUsername] = useState();
+    const [usuario, setUsuario] = useState();
     const [password, setPassword] = useState();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(correo, username, password);
-        // const tokenUser = await loginUser({
-        //     username,
-        //     password,
-        // });
+        console.log(correo, usuario, password);
+        const result = await createNewUser({ correo, usuario, password });
+        console.log(result);
+    };
 
-        // if (tokenUser) {
-        //     setToken(tokenUser);
-        //     window.location.href = 'direccion';
-        // }
+    const createNewUser = async (props) => {
+        try {
+            console.log(token);
+            const request = await client.post('/api/usuario', props, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            if (request.status === 201) {
+                console.log(request);
+                return request.data;
+            } else {
+                throw Error('Error');
+            }
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     return (
@@ -32,7 +52,7 @@ const Registro = () => {
                         <p>Usuario</p>
                         <input
                             type='text'
-                            onChange={(e) => setUsername(e.target.value)}
+                            onChange={(e) => setUsuario(e.target.value)}
                         />
                     </label>
                     <label>
