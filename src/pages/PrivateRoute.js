@@ -5,7 +5,7 @@ import useLocalStorage from '../util/useLocalStorage';
 const PrivateRoute = ({ children }) => {
     const [token, setToken] = useLocalStorage('', 'token');
 
-    return token ? children : <Navigate to='/login'></Navigate>;
+    return token ? children : <Navigate to='/home'></Navigate>;
 };
 
 export default PrivateRoute;

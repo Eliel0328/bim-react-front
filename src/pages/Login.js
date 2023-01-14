@@ -11,8 +11,9 @@ const loginUser = async (props) => {
     try {
         const request = await client.post('/api/auth/login', props);
         if (request.status === 200) {
-            const authValue = request.headers.get('Authorization');
-            return authValue;
+            const idUsuario = request.data.idUsuario;
+            const token = request.headers.get('Authorization');
+            return { token, idUsuario };
         } else {
             throw Error('Datos Invalidos');
         }
@@ -23,20 +24,22 @@ const loginUser = async (props) => {
 
 const Login = () => {
     const [token, setToken] = useLocalStorage('', 'token');
+    const [userId, setUserID] = useLocalStorage('', 'ID');
 
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const tokenUser = await loginUser({
+
+        const { token, idUsuario } = await loginUser({
             username,
             password,
         });
 
-        console.log(tokenUser);
-        if (tokenUser) {
-            setToken(tokenUser);
+        if (token) {
+            setToken(token);
+            setUserID(idUsuario);
             window.location.href = 'direccion';
         }
     };

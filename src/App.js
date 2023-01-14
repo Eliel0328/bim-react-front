@@ -6,7 +6,7 @@ import './App.css';
 const App = () => {
     return (
         <div className='wrapper'>
-            <h1>Application</h1>
+            <h1>Prueba BIM</h1>
             <RouterPage></RouterPage>
         </div>
     );
