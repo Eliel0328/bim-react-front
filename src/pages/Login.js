@@ -47,24 +47,34 @@ const Login = () => {
     return (
         <>
             <div className='login-wrapper'>
-                <h1>Please Log In</h1>
+                <h1 className='title is-2'>Ingrese sus datos</h1>
                 <form onSubmit={handleSubmit}>
-                    <label>
-                        <p>Username</p>
-                        <input
-                            type='text'
-                            onChange={(e) => setUserName(e.target.value)}
-                        />
-                    </label>
-                    <label>
-                        <p>Password</p>
-                        <input
-                            type='password'
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                    </label>
+                    <div className='field'>
+                        <label className='label'>Usuario</label>
+                        <div className='control'>
+                            <input
+                                className='input is-primary'
+                                type='text'
+                                onChange={(e) => setUserName(e.target.value)}
+                            />
+                        </div>
+                    </div>
+
+                    <div className='field'>
+                        <label className='label'>Contraseña</label>
+                        <div className='control'>
+                            <input
+                                className='input is-primary'
+                                type='password'
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                        </div>
+                    </div>
+
                     <div>
-                        <button type='submit'>Login</button>
+                        <button className='button is-success' type='submit'>
+                            Login
+                        </button>
                     </div>
                 </form>
             </div>

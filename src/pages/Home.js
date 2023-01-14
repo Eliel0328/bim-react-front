@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Login from './Login';
 import Registro from './Registro';
+import 'bulma/css/bulma.min.css';
 
 const Home = () => {
     const [visible, setVisible] = useState(true);
@@ -15,8 +16,24 @@ const Home = () => {
 
     return (
         <>
-            <button onClick={onClicIniciar}>Iniciar sesión</button>
-            <button onClick={onClicRegistro}>Registrar cuenta</button>
+            <div className='columns is-mobile is-centered'>
+                <div className='bd-notification is-primary'>
+                    <div className='buttons'>
+                        <button
+                            className='button is-primary is-light'
+                            onClick={onClicIniciar}
+                        >
+                            Iniciar sesión
+                        </button>
+                        <button
+                            className='button is-link is-light'
+                            onClick={onClicRegistro}
+                        >
+                            Registrar cuenta
+                        </button>
+                    </div>
+                </div>
+            </div>
 
             <div className={visible ? '' : 'd-none'}>
                 <Login />

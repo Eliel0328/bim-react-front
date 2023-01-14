@@ -83,34 +83,47 @@ const Direccion = () => {
     return (
         <>
             <div className='login-wrapper'>
-                <h1>Direccion del usuario</h1>
+                <h1 className='title is-2'>Direccion del usuario</h1>
                 <form onSubmit={handleSubmit}>
-                    <label>
-                        <p>Estado</p>
-                        <input
-                            type='text'
-                            value={estado}
-                            onChange={(e) => setEstado(e.target.value)}
-                        />
-                    </label>
-                    <label>
-                        <p>Municipio</p>
-                        <input
-                            type='text'
-                            value={municipio}
-                            onChange={(e) => setMunicipio(e.target.value)}
-                        />
-                    </label>
-                    <label>
-                        <p>Codigo Postal</p>
-                        <input
-                            type='text'
-                            value={cp}
-                            onChange={(e) => setCP(e.target.value)}
-                        />
-                    </label>
+                    <div className='field'>
+                        <label className='label'>Estado</label>
+                        <div className='control'>
+                            <input
+                                className='input is-warning'
+                                type='text'
+                                value={estado}
+                                onChange={(e) => setEstado(e.target.value)}
+                            />
+                        </div>
+                    </div>
+                    <div className='field'>
+                        <label className='label'>Municipio</label>
+                        <div className='control'>
+                            <input
+                                className='input is-warning'
+                                type='text'
+                                value={municipio}
+                                onChange={(e) => setMunicipio(e.target.value)}
+                            />
+                        </div>
+                    </div>
+
+                    <div className='field'>
+                        <label className='label'>Código Postal</label>
+                        <div className='control'>
+                            <input
+                                className='input is-warning'
+                                type='text'
+                                value={cp}
+                                onChange={(e) => setCP(e.target.value)}
+                            />
+                        </div>
+                    </div>
+
                     <div>
-                        <button type='submit'>Actualizar</button>
+                        <button className='button is-warning' type='submit'>
+                            Actualizar
+                        </button>
                     </div>
                 </form>
             </div>
