@@ -8,33 +8,41 @@ const client = axios.create({
 
 const Registro = () => {
     const [token, setToken] = useLocalStorage('', 'token');
+    const [userId, setUserID] = useLocalStorage('', 'ID');
 
     const [correo, setCorreo] = useState();
     const [usuario, setUsuario] = useState();
     const [password, setPassword] = useState();
 
+    const [msgWrong, setMsgWrong] = useState(false);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const result = await createNewUser({ correo, usuario, password });
-        console.log(result);
+        const { token, idUsuario } = await createNewUser({ correo, usuario, password });
+
+        if (token) {
+            setToken(token);
+            setUserID(idUsuario);
+            window.location.href = 'direccion';
+        }
     };
 
     const createNewUser = async (props) => {
         try {
-            console.log(token);
-            const request = await client.post('/api/usuario', props, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
+            const request = await client.post('/api/auth/register', props, {});
+            console.log(request);
             if (request.status === 201) {
-                console.log(request);
-                return request.data;
+                setMsgWrong(false);
+                const idUsuario = request.data.idUsuario;
+                const token = request.headers.get('Authorization');
+                setMsgWrong(false);
+                return { token, idUsuario };
             } else {
                 throw Error('Error');
             }
         } catch (error) {
             console.error(error);
+            setMsgWrong(true);
         }
     };
 
@@ -81,6 +89,12 @@ const Registro = () => {
                         </button>
                     </div>
                 </form>
+
+                <div className={!msgWrong ? 'd-none' : 'card'} style={{ margin: 40 }}>
+                    <div className='notification is-danger'>
+                        Error: Posibles datos incorrectos o error de Conexión
+                    </div>
+                </div>
             </div>
         </>
     );

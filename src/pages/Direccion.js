@@ -16,6 +16,9 @@ const Direccion = () => {
     const [cp, setCP] = useState('');
     const [idUsuarioDireccion, setIDUsuarioDireccion] = useState(0);
 
+    const [msgWrong, setMsgWrong] = useState(false);
+    const [msgUpdate, setMsgUpdate] = useState(false);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -55,6 +58,7 @@ const Direccion = () => {
             if (error.response.status === 401) {
                 setToken('');
                 setUserID('');
+                window.location.href = 'home';
             }
         }
     };
@@ -67,7 +71,11 @@ const Direccion = () => {
                 },
             });
             if (request.status === 200) {
-                console.log(request);
+                setMsgUpdate(true);
+                setMsgWrong(false);
+                setTimeout(() => {
+                    setMsgUpdate(false);
+                }, 3000);
             } else {
                 throw Error('Error');
             }
@@ -76,6 +84,13 @@ const Direccion = () => {
             if (error.response.status === 401) {
                 setToken('');
                 setUserID('');
+            } else if (error.response.status === 400) {
+                setMsgWrong(true);
+                setMsgUpdate(false);
+
+                setTimeout(() => {
+                    setMsgWrong(false);
+                }, 3000);
             }
         }
     };
@@ -126,6 +141,15 @@ const Direccion = () => {
                         </button>
                     </div>
                 </form>
+
+                <div className={!msgUpdate ? 'd-none' : 'card'} style={{ margin: 40 }}>
+                    <div className='notification is-success'>Actualización Correcta</div>
+                </div>
+                <div className={!msgWrong ? 'd-none' : 'card'} style={{ margin: 40 }}>
+                    <div className='notification is-danger'>
+                        Error: Posibles datos incorrectos o error de Conexión
+                    </div>
+                </div>
             </div>
         </>
     );

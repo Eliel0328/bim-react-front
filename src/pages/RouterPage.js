@@ -16,7 +16,12 @@ const RouterPage = () => {
         <>
             <Router>
                 <Routes>
-                    <Route path='/home' element={<Home />}></Route>
+                    <Route
+                        path='/home'
+                        element={
+                            !token ? <Home /> : <Navigate to='/direccion'></Navigate>
+                        }
+                    ></Route>
                     <Route
                         path='/direccion'
                         element={
