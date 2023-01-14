@@ -1,30 +1,44 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import '../css/basic.css';
 import axios from 'axios';
+import useLocalStorage from '../util/useLocalStorage';
 
 const client = axios.create({
     baseURL: 'http://localhost:8080',
 });
 
 const loginUser = async (props) => {
-    const request = await client.post('/api/auth/login', props);
-    const authValue = request.headers.get('Authorization');
-    return authValue;
+    try {
+        const request = await client.post('/api/auth/login', props);
+        if (request.status === 200) {
+            const authValue = request.headers.get('Authorization');
+            return authValue;
+        } else {
+            throw Error('Datos Invalidos');
+        }
+    } catch (error) {
+        console.error(error);
+    }
 };
 
-const Login = ({ setToken }) => {
+const Login = () => {
+    const [token, setToken] = useLocalStorage('', 'token');
+
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const token = await loginUser({
+        const tokenUser = await loginUser({
             username,
             password,
         });
 
-        setToken(token);
+        console.log(tokenUser);
+        if (tokenUser) {
+            setToken(tokenUser);
+            window.location.href = 'direccion';
+        }
     };
 
     return (
@@ -47,16 +61,12 @@ const Login = ({ setToken }) => {
                         />
                     </label>
                     <div>
-                        <button type='submit'>Submit</button>
+                        <button type='submit'>Login</button>
                     </div>
                 </form>
             </div>
         </>
     );
-};
-
-Login.propTypes = {
-    setToken: PropTypes.func.isRequired,
 };
 
 export default Login;
