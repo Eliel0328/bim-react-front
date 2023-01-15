@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import useLocalStorage from '../util/useLocalStorage';
+import { SERVER_URL } from '../util/const';
 
 const client = axios.create({
-    baseURL: 'http://localhost:8080',
+    baseURL: SERVER_URL,
 });
 
 const Login = () => {
+    // eslint-disable-next-line
     const [token, setToken] = useLocalStorage('', 'token');
+    // eslint-disable-next-line
     const [userId, setUserID] = useLocalStorage('', 'ID');
 
     const [username, setUserName] = useState();

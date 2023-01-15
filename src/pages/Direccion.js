@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../css/basic.css';
 import useLocalStorage from '../util/useLocalStorage';
+import { SERVER_URL } from '../util/const';
 
 const client = axios.create({
-    baseURL: 'http://localhost:8080',
+    baseURL: SERVER_URL,
 });
 
 const Direccion = () => {
@@ -35,6 +36,7 @@ const Direccion = () => {
 
     useEffect(() => {
         getDireccion();
+        // eslint-disable-next-line
     }, []);
 
     const getDireccion = async () => {

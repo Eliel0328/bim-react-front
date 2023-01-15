@@ -1,15 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
 
-import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import useLocalStorage from '../util/useLocalStorage';
 import Direccion from './Direccion';
 import Home from './Home';
-import Login from './Login';
-import NotFound from './NotFound';
 import PrivateRoute from './PrivateRoute';
-import Registro from './Registro';
 
 const RouterPage = () => {
+    // eslint-disable-next-line
     const [token, setToken] = useLocalStorage('', 'token');
 
     return (
@@ -33,9 +31,11 @@ const RouterPage = () => {
                     <Route
                         path='/*'
                         element={
-                            <PrivateRoute>
-                                <NotFound />
-                            </PrivateRoute>
+                            !token ? (
+                                <Navigate to='/home' />
+                            ) : (
+                                <Navigate to='/direccion'></Navigate>
+                            )
                         }
                     ></Route>
                 </Routes>
