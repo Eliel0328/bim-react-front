@@ -14,14 +14,14 @@ Front para conectar con un servicio REST usando Spring. Ejemplo de persistencia 
 
 ## Instalación y ejecución
 
-Ejecutar el proyecto se debe generar el archivo JAR para lo cual se ejecuta el siguiente comando:
+Para ejecutar el proyecto se deben instalar los modulos, ejecutar los siguientes comandos:
 
 ```bash
 npm install
 npm start
 ```
 
-> **_NOTA:_** Antes se debe tener iniciado el serivdor con su condifuración correspondiente, más información en el siguiete [repositorio](https://github.com/Eliel0328/bim-spring-back)
+> **_NOTA:_** Antes se debe tener iniciado el serivdor con su configuración correspondiente, más información en el siguiete [repositorio](https://github.com/Eliel0328/bim-spring-back)
 
 ## Descripcion del desarrollo e implementación
 
@@ -47,7 +47,7 @@ A continuación se describe el proceso que se sigue para cumplir con las especif
 
 ### Conexión con Servidor
 
-Se debe crear la base datos
+Se debe crear la base datos, para lo cual se debe ingresar la dirección en el siguiente archivo `src/util/const.js`
 
 ```JS
 export const SERVER_URL = ${URL_SERVER}
